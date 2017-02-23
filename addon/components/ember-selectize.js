@@ -43,7 +43,7 @@ export default Component.extend({
   */
   optionValuePath: 'content',
   optionLabelPath: 'content',
-  optionGroupPath: 'content.group',
+  optionGroupPath: '',
 
   selection: null,
   value: computedPolyfill('selection', {
@@ -64,7 +64,7 @@ export default Component.extend({
     var groupedContent = this.get('groupedContent');
     if (groupedContent) {
       return groupedContent.mapBy('label');
-    } else {
+    } else if (this.get('_groupPath')) {
       //compute option groups from content
       var content = this.get('content');
       if (!isArray(content)) { return; }
@@ -72,6 +72,8 @@ export default Component.extend({
       return content.reduce((previousValue, item) => {
         return previousValue.addObject(get(item, this.get('_groupPath')));
       }, Ember.A());
+    } else {
+      return [];
     }
   }),
   /**
@@ -707,7 +709,7 @@ export default Component.extend({
         }
       }
 
-      if (get(obj, this.get('_groupPath'))) {
+      if (this.get('_groupPath') && get(obj, this.get('_groupPath'))) {
         data.optgroup = get(obj, this.get('_groupPath'));
       }
 
