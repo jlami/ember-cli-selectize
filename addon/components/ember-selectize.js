@@ -625,7 +625,7 @@ export default Component.extend({
       this._selectize.refreshOptions(this._selectize.isFocused && !this._selectize.isInputHidden);
     }
 
-//    this._selectionDidChange();
+    this._selectionDidChange();
   },
 
   _groupedContentWillChange(groupedContent) {
