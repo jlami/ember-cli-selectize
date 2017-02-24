@@ -603,9 +603,9 @@ export default Component.extend({
       this.objectWasRemoved(array.objectAt(i));
     }
 
-    if (this._selectize) {
-      this._selectize.refreshOptions(this._selectize.isFocused && !this._selectize.isInputHidden);
-    }
+//    if (this._selectize) {
+//      this._selectize.refreshOptions(this._selectize.isFocused && !this._selectize.isInputHidden);
+//    }
   },
 
   /*
@@ -617,12 +617,15 @@ export default Component.extend({
       this.objectWasAdded(array.objectAt(i));
       this.addLabelObserver(array.objectAt(i));
     }
-
+    Ember.run.debounce(this, this._debouncedChanges, 100);
+  },
+  
+  _debouncedChanges() {
     if (this._selectize) {
       this._selectize.refreshOptions(this._selectize.isFocused && !this._selectize.isInputHidden);
     }
 
-    this._selectionDidChange();
+//    this._selectionDidChange();
   },
 
   _groupedContentWillChange(groupedContent) {
