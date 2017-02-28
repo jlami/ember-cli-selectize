@@ -621,7 +621,7 @@ export default Component.extend({
   },
   
   _debouncedChanges() {
-  	let wasOpen = this._selectize.isOpen;
+    let wasOpen = this._selectize.isOpen || this._selectize.settings.openOnFocus && this._selectize.isFocused && !this._selectize.isInputHidden;
   	
     this._selectionDidChange();
     
