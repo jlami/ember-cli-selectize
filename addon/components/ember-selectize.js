@@ -621,11 +621,13 @@ export default Component.extend({
   },
   
   _debouncedChanges() {
-    if (this._selectize) {
-      this._selectize.refreshOptions(this._selectize.isFocused && !this._selectize.isInputHidden);
-    }
-
+  	let wasOpen = this._selectize.isOpen;
+  	
     this._selectionDidChange();
+    
+    if (this._selectize) {
+      this._selectize.refreshOptions(wasOpen);
+    }
   },
 
   _groupedContentWillChange(groupedContent) {
